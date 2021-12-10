@@ -1,12 +1,14 @@
 from app.model.dosen import Dosen
+from app.model.mahasiswa import Mahasiswa
 from app import response, app, db
 from flask import request
 
+# Menampilkan Semua Data Dosen
 def index():
     try:
         dosen = Dosen.query.all()
         data = formatArray(dosen)
-        return response.success(data, "success")
+        return response.success(data, "Data dosen ditemukan!")
     
     except Exception as e:
         print(e)
@@ -23,6 +25,35 @@ def singleObject(data):
     data = {
         'id': data.id,
         'nidn': data.nidn,
+        'nama': data.nama,
+        'phone': data.phone,
+        'alamat': data.alamat
+    }
+    return data
+
+# Menampilkan Detail Dosen
+def detail(id):
+    try:
+        dosen = Dosen.query.filter_by(id).first()
+        mahasiswa = Mahasiswa.query.filter((Mahasiswa.dosen_satu == id) | (Mahasiswa.dosen_dua == id))
+        if not dosen:
+            return response.badRequest([],"Tidak ada data dosen!")
+
+
+    except Exception as e:
+        print(e)
+
+def formatArrayMahasiswa(datas):
+    array = []
+    for i in datas:
+        array.append(singleObjectMahasiswa(i))
+    
+    return array
+
+def singleObjectMahasiswa(data):
+    data = {
+        'id': data.id,
+        'nim': data.nim,
         'nama': data.nama,
         'phone': data.phone,
         'alamat': data.alamat
