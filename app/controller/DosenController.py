@@ -53,7 +53,7 @@ def formatArrayMahasiswa(datas):
 def singleObjectMahasiswa(data):
     data = {
         'id': data.id,
-        'nim': data.nim,
+        'nim': data.nim,  
         'nama': data.nama,
         'phone': data.phone,
         'alamat': data.alamat
