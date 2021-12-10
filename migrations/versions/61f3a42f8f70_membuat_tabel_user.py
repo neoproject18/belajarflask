@@ -1,8 +1,8 @@
-"""membuat table user
+"""membuat tabel user
 
-Revision ID: 045e9b0987e4
+Revision ID: 61f3a42f8f70
 Revises: 
-Create Date: 2021-12-09 14:26:34.899914
+Create Date: 2021-12-10 13:41:09.215020
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '045e9b0987e4'
+revision = '61f3a42f8f70'
 down_revision = None
 branch_labels = None
 depends_on = None

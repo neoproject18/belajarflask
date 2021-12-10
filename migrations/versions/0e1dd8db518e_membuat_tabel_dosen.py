@@ -1,8 +1,8 @@
 """membuat tabel dosen
 
-Revision ID: 1ab9f73b3a6a
-Revises: 045e9b0987e4
-Create Date: 2021-12-09 14:34:41.431090
+Revision ID: 0e1dd8db518e
+Revises: 61f3a42f8f70
+Create Date: 2021-12-10 13:43:33.204343
 
 """
 from alembic import op
@@ -10,8 +10,8 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '1ab9f73b3a6a'
-down_revision = '045e9b0987e4'
+revision = '0e1dd8db518e'
+down_revision = '61f3a42f8f70'
 branch_labels = None
 depends_on = None
 
@@ -23,7 +23,7 @@ def upgrade():
     sa.Column('nidn', sa.String(length=30), nullable=False),
     sa.Column('nama', sa.String(length=50), nullable=False),
     sa.Column('phone', sa.String(length=13), nullable=False),
-    sa.Column('almaat', sa.String(length=100), nullable=False),
+    sa.Column('alamat', sa.String(length=100), nullable=False),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('nidn')
     )

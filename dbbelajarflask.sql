@@ -42,9 +42,14 @@ CREATE TABLE `dosen` (
   `alamat` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `nidn` (`nidn`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 /*Data for the table `dosen` */
+
+insert  into `dosen`(`id`,`nidn`,`nama`,`phone`,`alamat`) values 
+(1,'123456780','Anom','08565656','Janti'),
+(2,'123456781','Bekti','08965566','Babarsari'),
+(3,'123456782','Ica','08565655','Jrakah');
 
 /*Table structure for table `mahasiswa` */
 

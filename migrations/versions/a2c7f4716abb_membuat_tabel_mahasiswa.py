@@ -1,8 +1,8 @@
 """membuat tabel mahasiswa
 
-Revision ID: 540019bae805
-Revises: c08991da0885
-Create Date: 2021-12-09 14:40:04.202444
+Revision ID: a2c7f4716abb
+Revises: 0e1dd8db518e
+Create Date: 2021-12-10 13:44:02.990778
 
 """
 from alembic import op
@@ -10,8 +10,8 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '540019bae805'
-down_revision = 'c08991da0885'
+revision = 'a2c7f4716abb'
+down_revision = '0e1dd8db518e'
 branch_labels = None
 depends_on = None
 

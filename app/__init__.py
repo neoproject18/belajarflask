@@ -1,5 +1,4 @@
 from flask import Flask
-import sqlalchemy
 from config import Config
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
@@ -9,7 +8,5 @@ app.config.from_object(Config)
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
-from app.model import user
-from app.model import dosen
-from app.model import mahasiswa
+from app.model import user, dosen, mahasiswa
 from app import routes
