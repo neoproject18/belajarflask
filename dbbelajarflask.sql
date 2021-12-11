@@ -28,7 +28,7 @@ CREATE TABLE `alembic_version` (
 /*Data for the table `alembic_version` */
 
 insert  into `alembic_version`(`version_num`) values 
-('540019bae805');
+('a2c7f4716abb');
 
 /*Table structure for table `dosen` */
 
@@ -69,9 +69,15 @@ CREATE TABLE `mahasiswa` (
   KEY `dosen_satu` (`dosen_satu`),
   CONSTRAINT `mahasiswa_ibfk_1` FOREIGN KEY (`dosen_dua`) REFERENCES `dosen` (`id`),
   CONSTRAINT `mahasiswa_ibfk_2` FOREIGN KEY (`dosen_satu`) REFERENCES `dosen` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 /*Data for the table `mahasiswa` */
+
+insert  into `mahasiswa`(`id`,`nim`,`nama`,`phone`,`alamat`,`dosen_satu`,`dosen_dua`) values 
+(1,'140707642','Dharma Bekti','085656897','Babatan',1,2),
+(2,'140707643','Jaya Karta','08986564546','Semarang',2,3),
+(3,'140707644','Ryan Santoso','0835656466','Jakal',1,3),
+(4,'140707645','Aya','08752656866','Condong Catur',3,2);
 
 /*Table structure for table `user` */
 

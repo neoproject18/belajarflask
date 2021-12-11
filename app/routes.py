@@ -6,6 +6,12 @@ from app.controller import DosenController
 def index():
     return 'Hello Flask App'
 
+
 @app.route('/dosen', methods=['GET'])
 def dosens():
     return DosenController.index()
+
+
+@app.route('/dosen/<id>', methods=['GET'])
+def dosensDetail(id):
+    return DosenController.detail(id)
