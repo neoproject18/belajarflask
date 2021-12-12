@@ -1,12 +1,17 @@
 from werkzeug.wrappers import request
 from app import app
-from app.controller import DosenController
+from app.controller import DosenController, UserController
 from flask import request
 
 
 @app.route('/')
 def index():
     return 'Hello Flask App'
+
+
+@app.route('/createadmin', methods=['POST'])
+def admins():
+    return UserController.createAdmin()
 
 
 @app.route('/dosen', methods=['GET', 'POST'])

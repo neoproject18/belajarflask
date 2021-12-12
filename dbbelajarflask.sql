@@ -1,6 +1,6 @@
 /*
-SQLyog Professional v12.5.1 (32 bit)
-MySQL - 10.1.34-MariaDB : Database - dbbelajarflask
+SQLyog Enterprise v12.5.1 (64 bit)
+MySQL - 10.4.21-MariaDB : Database - dbbelajarflask
 *********************************************************************
 */
 
@@ -28,7 +28,7 @@ CREATE TABLE `alembic_version` (
 /*Data for the table `alembic_version` */
 
 insert  into `alembic_version`(`version_num`) values 
-('a2c7f4716abb');
+('8cc3f5cdaf07');
 
 /*Table structure for table `dosen` */
 
@@ -67,8 +67,8 @@ CREATE TABLE `mahasiswa` (
   UNIQUE KEY `nim` (`nim`),
   KEY `dosen_dua` (`dosen_dua`),
   KEY `dosen_satu` (`dosen_satu`),
-  CONSTRAINT `mahasiswa_ibfk_1` FOREIGN KEY (`dosen_dua`) REFERENCES `dosen` (`id`),
-  CONSTRAINT `mahasiswa_ibfk_2` FOREIGN KEY (`dosen_satu`) REFERENCES `dosen` (`id`)
+  CONSTRAINT `mahasiswa_ibfk_1` FOREIGN KEY (`dosen_satu`) REFERENCES `dosen` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `mahasiswa_ibfk_2` FOREIGN KEY (`dosen_dua`) REFERENCES `dosen` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 /*Data for the table `mahasiswa` */
@@ -90,11 +90,15 @@ CREATE TABLE `user` (
   `password` varchar(250) NOT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
+  `level` bigint(20) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `ix_user_email` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 /*Data for the table `user` */
+
+insert  into `user`(`id`,`name`,`email`,`password`,`created_at`,`updated_at`,`level`) values 
+(1,'admin','admin@mail.com','pbkdf2:sha256:260000$1BMZghLuyOsFH9QL$4c61c3d0df5e5f3e7297c1fbce98c4c2e74f54710324c60e993e07b86f74b21d','2021-12-12 13:23:47','2021-12-12 13:23:47',1);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
