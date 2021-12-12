@@ -82,3 +82,62 @@ def singleDetailMahasiswa(dosen, mahasiswa):
         'mahasiswa': mahasiswa
     }
     return data
+
+# Insert Data
+
+
+def save():
+    try:
+        nidn = request.form.get('nidn')
+        nama = request.form.get('nama')
+        phone = request.form.get('phone')
+        alamat = request.form.get('alamat')
+        dosens = Dosen(nidn=nidn, nama=nama, phone=phone, alamat=alamat)
+        db.session.add(dosens)
+        db.session.commit()
+
+        return response.success('', 'Data dosen berhasil ditambahkan')
+    except Exception as e:
+        print(e)
+
+# Update Data
+
+
+def update(id):
+    try:
+        nidn = request.form.get('nidn')
+        nama = request.form.get('nama')
+        phone = request.form.get('phone')
+        alamat = request.form.get('alamat')
+
+        input = [
+            {
+                'nidn': nidn,
+                'nama': nama,
+                'phone': phone,
+                'alamat': alamat
+            }
+        ]
+
+        dosen = Dosen.query.filter_by(id=id).first()
+        dosen.nidn = nidn
+        dosen.nama = nama
+        dosen.phone = phone
+        dosen.alamat = alamat
+        db.session.commit()
+
+        return response.success(input, 'Data dosen berhasil diperbarui')
+    except Exception as e:
+        print(e)
+
+
+def delete(id):
+    try:
+        dosen = Dosen.query.filter_by(id=id).first()
+        if not dosen:
+            return response.badRequest([], 'Data dosen tidak ditemukan!')
+        db.session.delete(dosen)
+        db.session.commit()
+        return response.success('', 'Dosen berhasil dihapus!')
+    except Exception as e:
+        print(e)
