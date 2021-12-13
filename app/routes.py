@@ -33,6 +33,12 @@ def dosens():
     else:
         return DosenController.save()
 
+# Route Pagination
+@app.route('/api/dosen/page', methods=['GET'])
+@jwt_required()
+def pagination():
+    return DosenController.paginate()
+
 
 @app.route('/dosen/<id>', methods=['GET', 'PUT', 'DELETE'])
 @jwt_required()

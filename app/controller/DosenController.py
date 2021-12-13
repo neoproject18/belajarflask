@@ -1,7 +1,10 @@
+from flask.json import jsonify
+from sqlalchemy.orm import query
 from app.model.dosen import Dosen
 from app.model.mahasiswa import Mahasiswa
 from app import response, app, db
 from flask import request
+import math
 
 # Menampilkan Semua Data Dosen
 
@@ -15,14 +18,12 @@ def index():
     except Exception as e:
         print(e)
 
-
 def formatArray(datas):
     array = []
     for i in datas:
         array.append(singleObject(i))
 
     return array
-
 
 def singleObject(data):
     data = {
@@ -35,8 +36,6 @@ def singleObject(data):
     return data
 
 # Menampilkan Detail Dosen
-
-
 def detail(id):
     try:
         dosen = Dosen.query.filter_by(id=id).first()
@@ -52,14 +51,12 @@ def detail(id):
     except Exception as e:
         print(e)
 
-
 def formatArrayMahasiswa(datas):
     array = []
     for i in datas:
         array.append(singleObjectMahasiswa(i))
 
     return array
-
 
 def singleObjectMahasiswa(data):
     data = {
@@ -70,7 +67,6 @@ def singleObjectMahasiswa(data):
         'alamat': data.alamat
     }
     return data
-
 
 def singleDetailMahasiswa(dosen, mahasiswa):
     data = {
@@ -84,8 +80,6 @@ def singleDetailMahasiswa(dosen, mahasiswa):
     return data
 
 # Insert Data
-
-
 def save():
     try:
         nidn = request.form.get('nidn')
@@ -101,8 +95,6 @@ def save():
         print(e)
 
 # Update Data
-
-
 def update(id):
     try:
         nidn = request.form.get('nidn')
@@ -130,7 +122,7 @@ def update(id):
     except Exception as e:
         print(e)
 
-
+# Hapus Data
 def delete(id):
     try:
         dosen = Dosen.query.filter_by(id=id).first()
@@ -139,5 +131,65 @@ def delete(id):
         db.session.delete(dosen)
         db.session.commit()
         return response.success('', 'Dosen berhasil dihapus!')
+    except Exception as e:
+        print(e)
+
+def getPagination(clss, url, start, limit):
+    result = clss.query.all()
+    data = formatArray(result)
+    count = len(data)
+    obj = {}
+
+    if count < start:
+        obj['success'] = False
+        obj['message'] = "Page yang dipilih melewati batas total data!"
+        return obj
+    else:
+        obj['success'] = True
+        obj['start_page'] = start
+        obj['per_page'] = limit
+        obj['count'] = count
+        obj['total_page'] = math.ceil(count/limit)
+
+        #  Previous Link
+        if start == 1:
+            obj['previous'] = ''
+        else:
+            start_copy = max(1, start-limit)
+            limit_copy = start - 1
+            obj['previous'] = url + '?start=%d&limit=%d' % (start_copy, limit_copy)
+
+        #  Next Link
+        if start + limit > count:
+            obj['next'] = ''
+        else:
+            start_copy = start + limit
+            obj['next'] = url + '?start=%d&limit=%d' % (start_copy, limit)
+
+        obj['result'] = data[(start - 1) : (start - 1 + limit)]
+
+        return obj
+
+# Pagging
+def paginate():
+    # Mengambil parameter get
+    start = request.args.get('start')
+    limit = request.args.get('limit')
+    
+    try:
+        if start == None or limit == None:
+            return jsonify(getPagination(
+                Dosen,
+                'http://127.0.0.1:5000/api/dosen/page',
+                start = request.args.get('start', 1),                
+                limit = request.args.get('limit', 3)
+            ))
+        else:
+            return jsonify(getPagination(
+                Dosen,
+                'http://127.0.0.1:5000/api/dosen/page',
+                start = int(start),                
+                limit = int(limit)
+            ))
     except Exception as e:
         print(e)
