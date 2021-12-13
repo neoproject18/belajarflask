@@ -42,14 +42,18 @@ CREATE TABLE `dosen` (
   `alamat` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `nidn` (`nidn`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 /*Data for the table `dosen` */
 
 insert  into `dosen`(`id`,`nidn`,`nama`,`phone`,`alamat`) values 
 (1,'123456780','Anom','08565656','Janti'),
 (2,'123456781','Bekti','08965566','Babarsari'),
-(3,'123456782','Ica','08565655','Jrakah');
+(3,'123456782','Ica','08565655','Jrakah'),
+(4,'123456783','Venta','08656','Bayan'),
+(5,'123456784','Jaka','0865646','Sambeng'),
+(6,'123456785','Agus','08963522','Kutoarjo'),
+(7,'123456786','Mistiyah','0875568','Pekutan');
 
 /*Table structure for table `galeri` */
 
