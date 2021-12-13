@@ -9,9 +9,13 @@ def index():
     return 'Hello Flask App'
 
 
-@app.route('/createadmin', methods=['POST'])
-def admins():
-    return UserController.createAdmin()
+# @app.route('/createadmin', methods=['POST'])
+# def admins():
+#     return UserController.createAdmin()
+
+@app.route('/login', methods=['POST'])
+def logins():
+    return UserController.login()
 
 
 @app.route('/dosen', methods=['GET', 'POST'])
