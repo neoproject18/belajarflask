@@ -1,26 +1,30 @@
 import datetime
 from app.model.user import User
+from app.model.galeri import Galeri
+import os
+from app import response, app, db, uploadconfig
+import uuid
+from werkzeug.utils import secure_filename
 
-from app import response, app, db
 from flask import request
 from flask_jwt_extended import *
 
 
-def createAdmin():
-    try:
-        name = request.form.get('name')
-        email = request.form.get('email')
-        password = request.form.get('password')
-        level = 1
+# def createAdmin():
+#     try:
+#         name = request.form.get('name')
+#         email = request.form.get('email')
+#         password = request.form.get('password')
+#         level = 1
 
-        users = User(name=name, email=email, level=level)
-        users.setPassword(password)
-        db.session.add(users)
-        db.session.commit()
+#         users = User(name=name, email=email, level=level)
+#         users.setPassword(password)
+#         db.session.add(users)
+#         db.session.commit()
 
-        return response.success('', 'Berhasil membuat admin!')
-    except Exception as e:
-        print(e)
+#         return response.success('', 'Berhasil membuat admin!')
+#     except Exception as e:
+#         print(e)
 
 def singleObject(data):
     return {
@@ -57,3 +61,34 @@ def login():
 
     except Exception as e:
         print(e)
+
+def upload():
+    try:
+        filename = request.form.get('filename')
+        if 'file' not in request.files:
+            return response.badRequest([],'File tidak tersedia')
+        
+        file = request.files['file']
+        if file.filename == '':
+            return response.badRequest([],'File tidak tersedia')
+        
+        if file and uploadconfig.allowed_file(file.filename):
+            uid = uuid.uuid4()
+            filename = secure_filename(file.filename)
+            renamefile = "Flask-" + str(uid) + filename
+            path = os.path.join(app.config['UPLOAD_FOLDER'], renamefile)
+            file.save(path)
+            file_length = os.stat(path).st_size
+
+            upload = Galeri(filename=filename, size=file_length, type=uploadconfig.get_ext(file.filename), pathname = renamefile)
+            db.session.add(upload)
+            db.session.commit()
+            return response.success({
+                'filename': filename,
+                'pathname': renamefile
+            }, 'Upload file galeri berhasil!')
+        else:
+            return response.badRequest([],'File tidak diizinkan')
+
+    except Exception as e:
+            print(e)

@@ -1,6 +1,6 @@
 /*
-SQLyog Enterprise v12.5.1 (64 bit)
-MySQL - 10.4.21-MariaDB : Database - dbbelajarflask
+SQLyog Professional v12.5.1 (32 bit)
+MySQL - 10.1.34-MariaDB : Database - dbbelajarflask
 *********************************************************************
 */
 
@@ -28,7 +28,7 @@ CREATE TABLE `alembic_version` (
 /*Data for the table `alembic_version` */
 
 insert  into `alembic_version`(`version_num`) values 
-('8cc3f5cdaf07');
+('d3967cb004ad');
 
 /*Table structure for table `dosen` */
 
@@ -50,6 +50,25 @@ insert  into `dosen`(`id`,`nidn`,`nama`,`phone`,`alamat`) values
 (1,'123456780','Anom','08565656','Janti'),
 (2,'123456781','Bekti','08965566','Babarsari'),
 (3,'123456782','Ica','08565655','Jrakah');
+
+/*Table structure for table `galeri` */
+
+DROP TABLE IF EXISTS `galeri`;
+
+CREATE TABLE `galeri` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `filename` varchar(50) NOT NULL,
+  `size` int(11) NOT NULL,
+  `type` varchar(50) NOT NULL,
+  `pathname` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+/*Data for the table `galeri` */
+
+insert  into `galeri`(`id`,`filename`,`size`,`type`,`pathname`) values 
+(1,'Selfi.jpeg',116464,'jpeg','Flask-d7f5bf3f-0bd7-479d-a383-f1aa09bb674eSelfi.jpeg'),
+(2,'buku.jpg',26813,'jpg','Flask-b349db46-4676-410f-af3e-036abec11f55buku.jpg');
 
 /*Table structure for table `mahasiswa` */
 
